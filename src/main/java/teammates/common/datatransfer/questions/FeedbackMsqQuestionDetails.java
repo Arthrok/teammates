@@ -16,29 +16,23 @@ public class FeedbackMsqQuestionDetails extends FeedbackQuestionDetails {
     static final int MSQ_MIN_NUM_OF_CHOICES = 2;
     static final String MSQ_ERROR_EMPTY_MSQ_OPTION = "The MSQ options cannot be empty";
     static final String MSQ_ERROR_OTHER_CONTENT_NOT_PROVIDED = "No text provided for other option";
-    static final String MSQ_ERROR_NONE_OF_THE_ABOVE_ANSWER =
-            "No other choices are allowed with \"None of the above\" option";
-    static final String MSQ_ERROR_NOT_ENOUGH_CHOICES =
-            "Too little choices for " + QUESTION_TYPE_NAME + ". Minimum number of options is: ";
-    static final String MSQ_ERROR_INVALID_OPTION =
-            " is not a valid option for the " + QUESTION_TYPE_NAME + ".";
-    static final String MSQ_ERROR_MAX_SELECTABLE_EXCEEDED_TOTAL =
-            "Maximum selectable choices exceeds the total number of options for " + QUESTION_TYPE_NAME;
-    static final String MSQ_ERROR_NUM_SELECTED_MORE_THAN_MAXIMUM =
-            "Number of choices selected is more than the maximum number ";
-    static final String MSQ_ERROR_MIN_SELECTABLE_MORE_THAN_NUM_CHOICES =
-            "Minimum selectable choices exceeds number of options ";
-    static final String MSQ_ERROR_NUM_SELECTED_LESS_THAN_MINIMUM =
-            "Number of choices selected is less than the minimum number ";
-    static final String MSQ_ERROR_MIN_SELECTABLE_EXCEEDED_MAX_SELECTABLE =
-            "Minimum selectable choices exceeds maximum selectable choices for " + QUESTION_TYPE_NAME;
-    static final String MSQ_ERROR_MIN_FOR_MAX_SELECTABLE_CHOICES =
-            "Maximum selectable choices for " + QUESTION_TYPE_NAME + " must be at least 2.";
-    static final String MSQ_ERROR_MIN_FOR_MIN_SELECTABLE_CHOICES =
-            "Minimum selectable choices for " + QUESTION_TYPE_NAME + " must be at least 1.";
-    static final String MSQ_ERROR_INVALID_WEIGHT =
-            "The weights for the choices of a " + QUESTION_TYPE_NAME
-                    + " must be valid numbers with precision up to 2 decimal places.";
+    static final String MSQ_ERROR_NONE_OF_THE_ABOVE_ANSWER = "No other choices are allowed with \"None of the above\" option";
+    static final String MSQ_ERROR_NOT_ENOUGH_CHOICES = "Too little choices for " + QUESTION_TYPE_NAME
+            + ". Minimum number of options is: ";
+    static final String MSQ_ERROR_INVALID_OPTION = " is not a valid option for the " + QUESTION_TYPE_NAME + ".";
+    static final String MSQ_ERROR_MAX_SELECTABLE_EXCEEDED_TOTAL = "Maximum selectable choices exceeds the total number of options for "
+            + QUESTION_TYPE_NAME;
+    static final String MSQ_ERROR_NUM_SELECTED_MORE_THAN_MAXIMUM = "Number of choices selected is more than the maximum number ";
+    static final String MSQ_ERROR_MIN_SELECTABLE_MORE_THAN_NUM_CHOICES = "Minimum selectable choices exceeds number of options ";
+    static final String MSQ_ERROR_NUM_SELECTED_LESS_THAN_MINIMUM = "Number of choices selected is less than the minimum number ";
+    static final String MSQ_ERROR_MIN_SELECTABLE_EXCEEDED_MAX_SELECTABLE = "Minimum selectable choices exceeds maximum selectable choices for "
+            + QUESTION_TYPE_NAME;
+    static final String MSQ_ERROR_MIN_FOR_MAX_SELECTABLE_CHOICES = "Maximum selectable choices for "
+            + QUESTION_TYPE_NAME + " must be at least 2.";
+    static final String MSQ_ERROR_MIN_FOR_MIN_SELECTABLE_CHOICES = "Minimum selectable choices for "
+            + QUESTION_TYPE_NAME + " must be at least 1.";
+    static final String MSQ_ERROR_INVALID_WEIGHT = "The weights for the choices of a " + QUESTION_TYPE_NAME
+            + " must be valid numbers with precision up to 2 decimal places.";
     static final String MSQ_ANSWER_NONE_OF_THE_ABOVE = "";
     static final String MSQ_ERROR_DUPLICATE_MSQ_OPTION = "The MSQ options cannot be duplicate";
 
@@ -117,7 +111,7 @@ public class FeedbackMsqQuestionDetails extends FeedbackQuestionDetails {
 
             if (msqChoices.size() < MSQ_MIN_NUM_OF_CHOICES) {
                 errors.add(MSQ_ERROR_NOT_ENOUGH_CHOICES
-                           + MSQ_MIN_NUM_OF_CHOICES + ".");
+                        + MSQ_MIN_NUM_OF_CHOICES + ".");
             }
 
             // If there are Empty Msq options entered trigger this error
@@ -134,13 +128,15 @@ public class FeedbackMsqQuestionDetails extends FeedbackQuestionDetails {
                 errors.add(MSQ_ERROR_INVALID_WEIGHT);
             }
 
-            // If weights are not enabled, but weight list is not empty or otherWeight is not 0
+            // If weights are not enabled, but weight list is not empty or otherWeight is
+            // not 0
             // In that case, trigger this error.
             if (!hasAssignedWeights && (!msqWeights.isEmpty() || msqOtherWeight != 0)) {
                 errors.add(MSQ_ERROR_INVALID_WEIGHT);
             }
 
-            // If weight is enabled, but other option is disabled, and msqOtherWeight is not 0
+            // If weight is enabled, but other option is disabled, and msqOtherWeight is not
+            // 0
             // In that case, trigger this error.
             if (hasAssignedWeights && !otherEnabled && msqOtherWeight != 0) {
                 errors.add(MSQ_ERROR_INVALID_WEIGHT);
@@ -159,9 +155,9 @@ public class FeedbackMsqQuestionDetails extends FeedbackQuestionDetails {
                 errors.add(MSQ_ERROR_INVALID_WEIGHT);
             }
 
-            //If there are duplicate mcq options trigger this error
-            boolean isDuplicateOptionsEntered = msqChoices.stream().map(String::trim).distinct().count()
-                                                != msqChoices.size();
+            // If there are duplicate mcq options trigger this error
+            boolean isDuplicateOptionsEntered = msqChoices.stream().map(String::trim).distinct().count() != msqChoices
+                    .size();
             if (isDuplicateOptionsEntered) {
                 errors.add(MSQ_ERROR_DUPLICATE_MSQ_OPTION);
             }
@@ -208,8 +204,7 @@ public class FeedbackMsqQuestionDetails extends FeedbackQuestionDetails {
             int totalChoicesSelected = details.getAnswers().size();
             boolean isMaxSelectableEnabled = maxSelectableChoices != Const.POINTS_NO_VALUE;
             boolean isMinSelectableEnabled = minSelectableChoices != Const.POINTS_NO_VALUE;
-            boolean isNoneOfTheAboveOptionEnabled =
-                    details.getAnswers().contains(MSQ_ANSWER_NONE_OF_THE_ABOVE);
+            boolean isNoneOfTheAboveOptionEnabled = details.getAnswers().contains(MSQ_ANSWER_NONE_OF_THE_ABOVE);
 
             // if other is not enabled and other is selected as an answer trigger this error
             if (details.isOther() && !otherEnabled) {
@@ -252,12 +247,14 @@ public class FeedbackMsqQuestionDetails extends FeedbackQuestionDetails {
                 if (totalChoicesSelected < minSelectableChoices) {
                     errors.add(MSQ_ERROR_NUM_SELECTED_LESS_THAN_MINIMUM + minSelectableChoices);
                 }
-                // if minimumSelectableChoices is enabled and None of the Above is selected as an answer trigger this error
+                // if minimumSelectableChoices is enabled and None of the Above is selected as
+                // an answer trigger this error
                 if (isNoneOfTheAboveOptionEnabled) {
                     errors.add(MSQ_ERROR_INVALID_OPTION);
                 }
             } else {
-                // if none of the above is selected AND other options are selected trigger this error
+                // if none of the above is selected AND other options are selected trigger this
+                // error
                 if ((details.getAnswers().size() > 1 || details.isOther()) && isNoneOfTheAboveOptionEnabled) {
                     errors.add(MSQ_ERROR_NONE_OF_THE_ABOVE_ANSWER);
                 }

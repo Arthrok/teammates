@@ -9,7 +9,8 @@ import teammates.common.datatransfer.attributes.FeedbackQuestionAttributes;
 import teammates.common.util.Const;
 
 /**
- * Contains specific structure and processing logic for rank recipients feedback questions.
+ * Contains specific structure and processing logic for rank recipients feedback
+ * questions.
  */
 public class FeedbackRankRecipientsQuestionDetails extends FeedbackRankQuestionDetails {
 
@@ -49,11 +50,13 @@ public class FeedbackRankRecipientsQuestionDetails extends FeedbackRankQuestionD
             }
             responseRank.add(details.getAnswer());
         }
-        // if number of options ranked is less than the minimum required trigger this error
+        // if number of options ranked is less than the minimum required trigger this
+        // error
         if (isMinOptionsEnabled && responses.size() < minOptionsToBeRanked) {
             errors.add("You must rank at least " + minOptionsToBeRanked + " options.");
         }
-        // if number of options ranked is more than the maximum possible trigger this error
+        // if number of options ranked is more than the maximum possible trigger this
+        // error
         if (isMaxOptionsEnabled && responses.size() > maxOptionsToBeRanked) {
             errors.add("You can rank at most " + maxOptionsToBeRanked + " options.");
         }
